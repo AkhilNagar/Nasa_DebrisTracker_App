@@ -30,6 +30,11 @@ public class location extends AppCompatActivity {
     Double lonf;
     Double msssf;
     Double mssf;
+    Double temp;
+    Double pressure;
+    Double humidity;
+    Double wind_speed;
+
     @Override
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -60,6 +65,16 @@ public class location extends AppCompatActivity {
 
                                 msssf= obj.getDouble("mss_anom_scaled");
 
+                                temp = obj.getDouble("temperature");
+
+                                pressure= obj.getDouble("pressure");
+
+                                humidity= obj.getDouble("humidity");
+
+                                wind_speed = obj.getDouble("wind_speed");
+
+
+
                         }catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -77,7 +92,7 @@ public class location extends AppCompatActivity {
 
         queue.add(jsonObjectRequest);
 
-        text.setText("Please wait while we search for debris near your location");
+        text.setText("Please wait while we search for debris");
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -90,10 +105,15 @@ public class location extends AppCompatActivity {
                 intent.putExtra("lon0", Double.parseDouble(String.valueOf(lon.getText())));
                 intent.putExtra("mssf", mssf);
                 intent.putExtra("msssf", msssf);
+                intent.putExtra("temp", temp );
+                intent.putExtra("pressure", pressure);
+                intent.putExtra("humidity", humidity);
+                intent.putExtra("wind_speed", wind_speed);
+
 
                 startActivity(intent);
             }
-        }, 10000);
+        }, 15000);
         //text.setText(latf.toString()+" "+lonf.toString());
 
 

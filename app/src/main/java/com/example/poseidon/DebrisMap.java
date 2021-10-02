@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.DecimalFormat;
+
 public class DebrisMap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -64,6 +66,7 @@ public class DebrisMap extends FragmentActivity implements OnMapReadyCallback {
                 TextView snippet = infoWindow.findViewById(R.id.snippet);
                 snippet.setText(marker.getSnippet());
 
+
                 return infoWindow;
 
             }
@@ -74,6 +77,11 @@ public class DebrisMap extends FragmentActivity implements OnMapReadyCallback {
         double lon0 = getIntent().getDoubleExtra("lon0", 72.80);
         double mssf = getIntent().getDoubleExtra("mssf", 1);
         double msssf = getIntent().getDoubleExtra("msssf", 1);
+        double temp = getIntent().getDoubleExtra("temp", 1);
+        double wind_speed = getIntent().getDoubleExtra("wind_speed", 1);
+        double humidity = getIntent().getDoubleExtra("humidity", 1);
+        double pressure = getIntent().getDoubleExtra("pressure", 1);
+
         String message="";
         if(msssf<0.25){
             message="Extremely Polluted";
@@ -89,20 +97,25 @@ public class DebrisMap extends FragmentActivity implements OnMapReadyCallback {
         }
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(lat, lon);
+         DecimalFormat df = new DecimalFormat("0.00");
 
         mMap.addMarker(new MarkerOptions()
                 .position(sydney)
-                .title("Lat"+lat+"Lon"+lon)
-                .snippet(message+" Scaled Anomaly Value" + msssf)
-                //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_garbage_round))
+                .title("Latitude "+lat+"\nLongitude "+lon)
+                .snippet(message+"\nScaled Anomaly Value " + df.format(msssf)
+                +"\nTemperature "+ df.format(temp)
+                +"\nWind Speed " + df.format(wind_speed)
+                +"\nHumidity "+ df.format(humidity)
+                +"\nPressure "+ df.format(pressure))
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.trasht))
         );
 
         LatLng userloc = new LatLng(lat0, lon0);
         mMap.addMarker(new MarkerOptions()
                 .position(userloc)
-                .title("Lat"+lat0+"Lon"+lon0)
-                .snippet("Location chosen by user")
-                //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_garbage_round))
+                .title("Latitude "+lat0+"\nLongitude"+lon0)
+                .snippet("Location chosen by user ")
+
         );
 
 
