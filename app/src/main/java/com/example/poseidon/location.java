@@ -93,7 +93,7 @@ public class location extends AppCompatActivity {
 
                 startActivity(intent);
             }
-        }, 8000);
+        }, 10000);
         //text.setText(latf.toString()+" "+lonf.toString());
 
 
